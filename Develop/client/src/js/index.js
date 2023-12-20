@@ -10,17 +10,25 @@ const loadSpinner = () => {
   const spinner = document.createElement('div');
   spinner.classList.add('spinner');
   spinner.innerHTML = `
-  <div class="loading-container">
-  <div class="loading-spinner" />
-  </div>
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+    </div>
   `;
   main.appendChild(spinner);
 };
 
-const editor = new Editor();
+// Show spinner by default
+loadSpinner();
 
-if (typeof editor === 'undefined') {
-  loadSpinner();
+try {
+  const editor = new Editor();
+
+  // Remove spinner once the editor is initialized
+  main.innerHTML = ''; // Clears the spinner
+
+} catch (error) {
+  console.error('Editor failed to load:', error);
+  main.innerHTML = '<p>Failed to load the editor. Please try again later.</p>';
 }
 
 // Check if service workers are supported
