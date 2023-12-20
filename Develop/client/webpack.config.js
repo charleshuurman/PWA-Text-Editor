@@ -18,12 +18,45 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: './index.html', 
+        filename: 'index.html'
+      }),
+      new WebpackPwaManifest({
+        name: 'Your App Name',
+        short_name: 'AppShortName',
+        description: 'Your application description',
+        background_color: '#ffffff',
+        crossorigin: 'use-credentials', // Can be set to 'anonymous'
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'), 
+            sizes: [96, 128, 192, 256, 384, 512] // Multiple sizes
+          }
+        ]
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js', 
+        swDest: 'service-worker.js'
+      })
     ],
-
     module: {
       rules: [
-        
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-runtime']
+            }
+          }
+        }
       ],
     },
   };
