@@ -61,9 +61,12 @@ typings/
 .next
 
 # lock files
-package-lock.json
-yarn.lock
+# package-lock.json (Uncomment this if you decide to track package-lock.json in your repository)
+# yarn.lock (Uncomment this if you decide to track yarn.lock in your repository)
 
 .DS_Store
 .vscode
 *.xslx
+
+# Uncomment the following line if you need to ignore the dist directory
+# dist/
